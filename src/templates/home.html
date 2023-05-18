@@ -1,0 +1,68 @@
+{% extends 'base.html'%}
+
+{% load static %}
+
+{% block title %} Home {% endblock title %}
+
+{% block content %}
+
+{% include 'banner.html'%} 
+
+<section class="blog-posts">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="all-blog-posts">
+            <div class="row">
+              {% for blog in blogs|slice:"3"%}
+              <div class="col-lg-12">
+                <div class="blog-post">
+                  <div class="blog-thumb">
+                    <img src="{{blog.featured.url}}" alt="">
+                  </div>
+                  <div class="down-content">
+                    <span>{{blog.category}}</span>
+                    <a href="{% url 'blog_details' blog.slug %}"><h4>{{blog.title}}</h4></a>
+                    <ul class="post-info">
+                      <li><a href="#">Admin</a></li>
+                      <li><a href="#">{{blog.created}}</a></li>
+                      <li><a href="#">48 Comments</a></li>
+                    </ul>
+                    {{blog.content|safe|truncatewords:50}}. <a href="{% url 'blog_details' blog.slug %}">Read More</a>
+                    <div class="post-options">
+                      <div class="row">
+                        <div class="col-6">
+                          <ul class="post-tags">
+                            <li><i class="fa fa-tags"></i></li>
+                            <li><a href="#">HTML CSS</a>,</li>
+                            <li><a href="#">Photoshop</a></li>
+                          </ul>
+                        </div>
+                        <div class="col-6">
+                          <ul class="post-share">
+                            <li><i class="fa fa-share-alt"></i></li>
+                            <li><a href="#">Facebook</a>,</li>
+                            <li><a href="#">Twitter</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+
+              <div class="col-lg-12">
+                <div class="main-button">
+                  <a href="{% url 'blogs' %}">View All Posts</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% include 'sidebar.html' %}
+      </div>
+    </div>
+  </section>
+
+{% endblock content %}
